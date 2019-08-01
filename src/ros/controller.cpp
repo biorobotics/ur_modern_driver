@@ -63,8 +63,11 @@ void ROSController::doSwitch(const std::list<hardware_interface::ControllerInfo>
 
     auto ait = available_interfaces_.find(requested_interface);
 
-    if (ait == available_interfaces_.end())
+    if (bool(ait == available_interfaces_.end()))
+    {
+      LOG_WARN("Failed to find interface %s", requested_interface);
       continue;
+    }
 
     auto new_interface = ait->second;
 
